@@ -1,0 +1,19 @@
+{
+    "name": "AutoDevbot.com-workers",
+    "private": true,
+    "version": "0.0.1",
+    "description": "AutoDevBots worker nodes",
+    "author": "Garland Kan <garlandk@gmail.com>",
+    "dependencies": {
+        "express": "3.4.8",
+        "redis": "0.10.0",
+        "shelljs": "0.2.6",
+        "frisby": "0.7.8",
+        "xml2js": "0.4.1",
+        "config": "0.4.35",
+        "yaml": "0.2.3",
+        "aws-sdk": "2.0.0-rc9",
+        "github": "0.1.14",
+        "async": ">=0.7.0"
+    }
+}
