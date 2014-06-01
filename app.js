@@ -39,7 +39,7 @@ app.use(express.bodyParser());
 var frisby_path = 'not_used'; //'/opt/AutoDevBotContainerNodes/node_modules/frisby/lib/frisby.js';
 
 // User data holding info needed to run this container
-// data: {"user_id":"b9e45b2320a544b8b017fbf60fb04247","github_url":"https://github.com/AutoDevBot/monitor-examples.git","oauth_token":"39fe8077e723d3fc6a519c46be9e8167eafd75bf","username":"garland2","email":"garland@example.org"}
+// data: {"user_id":"b9e45b2320a544b8b017fbf60fb04247","github_url":"https://github.com/AutoDevBot/monitor-examples.git","oauth_token":"1234","username":"garland2","email":"garland@example.org"}
 var userData = new Object();
 
 // Holds persistent data on file system
