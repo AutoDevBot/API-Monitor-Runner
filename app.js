@@ -44,7 +44,7 @@ var userData = new Object();
 
 // Holds persistent data on file system
 var persistent_data_file = './AutoDevBot_userData.txt';
-var repository_path = '/opt/repo';
+var repository_path = '/tmp/repo';
 var result_output_path = '/tmp/frisby_output/';
 
 userData = checkPersistentData(shell, persistent_data_file);
