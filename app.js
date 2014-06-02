@@ -36,14 +36,16 @@ app.use(express.bodyParser());
 
 
 // TODO: put this path in the config file so that it can be changed for each environment
-var frisby_path = 'not_used'; //'/opt/AutoDevBotContainerNodes/node_modules/frisby/lib/frisby.js';
+var frisby_path = 'not_used';
 
 // User data holding info needed to run this container
 // data: {"user_id":"b9e45b2320a544b8b017fbf60fb04247","github_url":"https://github.com/AutoDevBot/monitor-examples.git","oauth_token":"1234","username":"garland2","email":"garland@example.org"}
 var userData = new Object();
 
 // Holds persistent data on file system
-var persistent_data_file = '/opt/AutoDevBot_userData.txt';
+var persistent_data_file = './AutoDevBot_userData.txt';
+var repository_path = '/opt/repo';
+var result_output_path = '/tmp/frisby_output/';
 
 userData = checkPersistentData(shell, persistent_data_file);
 console.log('Setting user data to:');
@@ -75,7 +77,7 @@ function pullCode(){
 
     repository.setGithubURL(userData.github_url);
     repository.setOauthToken(userData.oauth_token);
-    repository.setRepoPath('/opt/repo');
+    repository.setRepoPath(repository_path);
 
     async.series([
             function(callback){
@@ -124,8 +126,8 @@ function pullCode(){
  */
 app.post('/executeMonitorFrisby', function (req, res) {
 
-    executeMonitor.setRepoPath('/opt/repo');
-    executeMonitor.setResultOutputDir('/tmp/frisby_output/');
+    executeMonitor.setRepoPath(repository_path);
+    executeMonitor.setResultOutputDir(result_output_path);
 
     async.series([
             function(callback){
