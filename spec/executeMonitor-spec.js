@@ -55,5 +55,5 @@ describe("Execute a Frisby.js test", function(){
             done();
         });
 
-    });
+    }, 60000);
 });
