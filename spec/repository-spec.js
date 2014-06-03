@@ -1,8 +1,27 @@
+var shell = require('shelljs');
 var repository = require('../lib/repository.js');
 
-describe("Deal with pulling Github repository", function(){
+var repo_path = '/tmp/repo';
 
-    var repo_path = '/tmp/repo'; //'/opt/repo'
+describe("Before pulling a repository", function(){
+
+    beforeEach(function(done) {
+
+        // Create dummy directory for repository.remove() to remove
+        shell.exec('mkdir '+repo_path, function(code, output) {
+            console.log('Exit code:', code);
+            console.log('Program output:', output);
+            done();
+        });
+    });
+    afterEach(function(done) {
+        // remove dummy directory
+        shell.exec('rmdir '+repo_path, function(code, output) {
+            console.log('Exit code:', code);
+            console.log('Program output:', output);
+            done();
+        });
+    });
 
     it("Should insert the Github Oauth token into the Github URL", function(done){
         oAuthToken = '1234';
@@ -20,6 +39,9 @@ describe("Deal with pulling Github repository", function(){
             done();
         });
     });
+});
+
+describe("Dealing with pulling Github repository", function(){
 
     it("Should clone a Github.com respository", function(done){
         repository.setRepoPath(repo_path);
@@ -30,14 +52,24 @@ describe("Deal with pulling Github repository", function(){
             expect(result).toBe(true);
             done();
         });
-    })
+    });
 
     it("Should run npm install in the users repository", function(done){
         repository.setRepoPath(repo_path);
         repository.runNPMInstall(function(err, result){
             expect(err).toBe(null);
             expect(result).toBe(true);
+
+            // remove repo directory after this test is done
+            shell.exec('rm -rf '+repo_path, function(code, output) {
+                console.log('Exit code:', code);
+                console.log('Program output:', output);
+                done();
+            });
+
             done();
         });
     }, 10000);
+
+
 });
