@@ -4,14 +4,14 @@ describe("Execute a Frisby.js test", function(){
 
     it("Should check if the repository exist", function(done){
 
-        executeMonitor.setRepoPath('/opt/repo');
+        executeMonitor.setRepoPath('/tmp/repo');
         executeMonitor.doesExecuteRepoExist(function(err, result){
             expect(err).toBe(null);
             expect(result).toBe(true);
             done();
         });
 
-        executeMonitor.setRepoPath('/opt/foobar-zzzzzz');
+        executeMonitor.setRepoPath('/tmp/foobar-zzzzzz');
         executeMonitor.doesExecuteRepoExist(function(err, result){
             expect(err).toBe(null);
             expect(result).toBe(false);
@@ -38,7 +38,7 @@ describe("Execute a Frisby.js test", function(){
 
     it('Should execute the Frisby.js tests', function(done){
 
-        executeMonitor.setRepoPath('/opt/repo');
+        executeMonitor.setRepoPath('/tmp/repo');
         executeMonitor.setResultOutputDir('/tmp/frisby_output/');
         executeMonitor.runFrisbyjsTests(function(err, result){
             expect(result).toBe(true);
