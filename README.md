@@ -9,3 +9,8 @@ Getting started
 2.  Verify the setup by running the tests, run `jasmine-node spec/*`.
 3.  Start the server, run `node app.js`.
 
+Docker Container
+---------------
+There is a Dockerfile to build this repo and it is also in the Docker Hub
+
+https://registry.hub.docker.com/u/garland/api-monitor-runner/
