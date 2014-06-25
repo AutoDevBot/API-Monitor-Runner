@@ -21,12 +21,14 @@
  */
 
 var CONFIG = require('config').frisbyRunner;
+var conf = require('./config.js');
 var http    = require('http'),
     express = require('express');
 var shell = require('shelljs');
 var async = require('async');
 var executeMonitor = require('./lib/ExecuteMonitor.js');
 var repository = require('./lib/repository.js');
+var xml2js = require('./lib/parseResults.js');
 
 var PORT = CONFIG.port,
     HOST = CONFIG.host;
@@ -50,6 +52,11 @@ var result_output_path = '/tmp/frisby_output/';
 userData = checkPersistentData(shell, persistent_data_file);
 console.log('Setting user data to:');
 console.log(userData);
+
+// Setup test result triggers
+var post_trigger_on_all = process.env.POST_TRIGGER_ON_ALL || conf.POST_TRIGGER_ON_ALL;
+var post_trigger_on_error = process.env.POST_TRIGGER_ON_ERROR || conf.POST_TRIGGER_ON_ERROR;
+var post_trigger_on_failures = process.env.POST_TRIGGER_ON_FAILURES || conf.POST_TRIGGER_ON_FAILURES;
 
 
 /**
@@ -164,20 +171,52 @@ app.post('/executeMonitorFrisby', function (req, res) {
             function(callback){
                 // Get the test results
                 executeMonitor.getResults(function(err, results){
-                   if(err !== null){
+                   if(err !== true){
                        console.log(results);
+                       callback(null, results);
                    }else{
                        // Error
                        console.log(results);
+                       callback(null, false);
                    }
                 });
             }
         ],
         // optional callback
         function(err, results){
-            console.log(results);
-        });
+            console.log('Final test output:');
+            console.log(results[3].body);
 
+            xml2js.parse(results[3].body, function(err, result){
+
+                if(err){
+                    console.log('Error xml2js parsing of result');
+
+                    if(post_trigger_on_all){
+                        console.log('Trigger on all...');
+                    }
+
+                }else{
+                    console.log(result.testsuites.testsuite);
+
+                    console.log('Test name: '+result.testsuites.testsuite[0].$.name);
+                    console.log('Test errors: '+result.testsuites.testsuite[0].$.errors);
+                    console.log('Test failures: '+result.testsuites.testsuite[0].$.failures);
+                    console.log('Test time: '+result.testsuites.testsuite[0].$.time);
+
+                    if(result.testsuites.testsuite[0].$.errors == 0){
+                        if(post_trigger_on_error){
+                            console.log('Trigger on error...');
+                        }
+                    }
+                    if(result.testsuites.testsuite[0].$.failures == 0){
+                        if(post_trigger_on_failures){
+                            console.log('Trigger on failures...');
+                        }
+                    }
+                }
+            });
+    });
 });
 
 
