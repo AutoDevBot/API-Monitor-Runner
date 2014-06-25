@@ -1,6 +1,8 @@
 API-Monitor-Runner
 ==================
 
+[![Build Status](https://drone.io/github.com/AutoDevBot/API-Monitor-Runner/status.png)](https://drone.io/github.com/AutoDevBot/API-Monitor-Runner/latest)
+
 Starts a server that periodically and on-demand runs a suite of Frisby.js tests against your APIs.  In the event of an error, an email is sent (coming soon).
 
 Getting started
