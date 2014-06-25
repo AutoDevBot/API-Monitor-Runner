@@ -15,6 +15,6 @@
         "aws-sdk": "2.0.0-rc9",
         "github": "0.1.14",
         "async": ">=0.7.0",
-        "querystring": ">0.2.0"
+        "querystring": ">=0.2.0"
     }
 }
