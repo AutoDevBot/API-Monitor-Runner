@@ -29,8 +29,8 @@ var executeMonitor = require('./lib/ExecuteMonitor.js');
 var repository = require('./lib/repository.js');
 var resultHandler = require('./lib/results.js');
 
-var PORT = CONFIG.port,
-    HOST = CONFIG.host;
+var PORT = CONFIG.port || process.env.WEBPORT,
+    HOST = CONFIG.host || process.env.WEBHOST;
 
 var app = express();
 app.use(express.bodyParser());
