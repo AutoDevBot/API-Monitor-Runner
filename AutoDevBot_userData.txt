@@ -1,1 +1,0 @@
-{"user_id":"14e5c618a5ff4fe3a5597d2f51163df3","github_url":"https://github.com/AutoDevBot/monitor-examples.git","oauth_token":"1234","username":"g7","email":"g7@autodevbot.com"}

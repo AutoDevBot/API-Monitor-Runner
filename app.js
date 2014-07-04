@@ -7,20 +7,9 @@
  *                          the results into the raw_monitoring_results queue
  * /testEndpoint - test endpoint to make sure the server is up and running
  *
- *
- * Starting server:
- * -You will have to export an environment variable with the name of one of the configs:
- *      export NODE_ENV=default    -used to pull environment config
- *      export USER_ID=1234        -used to subscried to a Redis channel to bootstrap this container to pullCode
- *
- * Directory access and dependancies
- * -This worker needs write permission to /opt - it will put and delete the "repo" directory at this location
- * -This working will output the xml result to: /tmp/frisby_output/
- * -Frisby.js lib is expected at this location: /opt/AutoDevBotContainerNodes/node_modules/frisby/lib/frisby.js
- *
  */
 
-var CONFIG = require('config').frisbyRunner;
+var conf = require('./config.js');
 var http    = require('http'),
     express = require('express');
 var shell = require('shelljs');
@@ -29,28 +18,16 @@ var executeMonitor = require('./lib/ExecuteMonitor.js');
 var repository = require('./lib/repository.js');
 var resultHandler = require('./lib/results.js');
 
-var PORT = CONFIG.port || process.env.WEBPORT,
-    HOST = CONFIG.host || process.env.WEBHOST;
+// Setup Params
+var PORT = conf.SERVER_PORT || process.env.SERVER_PORT,
+    HOST = conf.SERVER_HOST || process.env.SERVER_HOST,
+    github_url = conf.GITHUB_URL || process.env.GITHUB_URL,
+    github_token = conf.GITHUB_TOKEN || process.env.GITHUB_TOKEN,
+    repository_path = conf.REPOSITORY_PATH || process.env.REPOSITORY_PATH,
+    result_output_path = conf.RESULT_OUTPUT_PATH || process.env.RESULT_OUTPUT_PATH;
 
 var app = express();
 app.use(express.bodyParser());
-
-
-// TODO: put this path in the config file so that it can be changed for each environment
-var frisby_path = 'not_used';
-
-// User data holding info needed to run this container
-// data: {"user_id":"b9e45b2320a544b8b017fbf60fb04247","github_url":"https://github.com/AutoDevBot/monitor-examples.git","oauth_token":"1234","username":"garland2","email":"garland@example.org"}
-var userData = new Object();
-
-// Holds persistent data on file system
-var persistent_data_file = './AutoDevBot_userData.txt';
-var repository_path = '/tmp/repo';
-var result_output_path = '/tmp/frisby_output/';
-
-userData = checkPersistentData(shell, persistent_data_file);
-console.log('Setting user data to:');
-console.log(userData);
 
 /**
  * Interval to hit the test interface to kick off a test.
@@ -75,8 +52,8 @@ intervalRunTests = setInterval(function(){
  */
 function pullCode(){
 
-    repository.setGithubURL(userData.github_url);
-    repository.setOauthToken(userData.oauth_token);
+    repository.setGithubURL(github_url);
+    repository.setOauthToken(github_token);
     repository.setRepoPath(repository_path);
 
     async.series([
@@ -187,7 +164,9 @@ app.post('/executeMonitorFrisby', function (req, res) {
     });
 });
 
-
+app.get('/heartbeat', function(req, res) {
+    res.json(200, { message: 'Alive'});
+})
 
 //
 // Create HTTP server
@@ -198,30 +177,6 @@ server.listen(PORT, HOST, null, function() {
     console.log('Server listening on port %d in %s mode', PORT, app.settings.env);
 });
 
-/**
- * Check if the file which is holding the persistent data is on the file system.
- * If so, return those values.
- *
- * @param shell
- * @param userDataFilePath
- * @returns {*}
- */
-function checkPersistentData(shell, userDataFilePath){
-
-    if (shell.test('-f', userDataFilePath)){
-        console.log('File exist: '+userDataFilePath);
-
-        // Read file
-        var userDataObj = JSON.parse(shell.cat(userDataFilePath));
-
-        return userDataObj;
-
-    }else{
-        console.log('File does not exist: '+userDataFilePath);
-
-        return {};
-    }
-}
 
 // Run pull code on startup
 pullCode();

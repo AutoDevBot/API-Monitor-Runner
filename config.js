@@ -1,3 +1,15 @@
+// Github.com params
+exports.GITHUB_URL = 'https://github.com/AutoDevBot/monitor-examples.git';
+exports.GITHUB_TOKEN = '12345'; // Generate an github access token to clone a private repo: https://help.github.com/articles/creating-an-access-token-for-command-line-use
+
+// API Monitor Operations
+exports.REPOSITORY_PATH = '/tmp/repo'; // Local directory to clone the repository to
+exports.RESULT_OUTPUT_PATH = '/tmp/frisby_output/'; // Local directory to put the results
+
+// Server TCP Port
+exports.SERVER_PORT = 8081;
+exports.SERVER_HOST = 'localhost';
+
 // Test results to trigger on
 exports.TRIGGER_ON_ALL = false;
 exports.TRIGGER_ON_ERROR = true;
