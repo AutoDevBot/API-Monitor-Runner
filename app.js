@@ -19,13 +19,13 @@ var repository = require('./lib/repository.js');
 var resultHandler = require('./lib/results.js');
 
 // Setup Params
-var PORT = conf.SERVER_PORT || process.env.SERVER_PORT,
-    HOST = conf.SERVER_HOST || process.env.SERVER_HOST,
-    github_url = conf.GITHUB_URL || process.env.GITHUB_URL,
-    github_token = conf.GITHUB_TOKEN || process.env.GITHUB_TOKEN,
-    repository_path = conf.REPOSITORY_PATH || process.env.REPOSITORY_PATH,
-    result_output_path = conf.RESULT_OUTPUT_PATH || process.env.RESULT_OUTPUT_PATH,
-    monitor_interval = conf.MONITOR_INTERVAL || process.env.MONITOR_INTERVAL;
+var PORT = process.env.SERVER_PORT || conf.SERVER_PORT,
+    HOST = process.env.SERVER_HOST || conf.SERVER_HOST,
+    github_url = process.env.GITHUB_URL || conf.GITHUB_URL,
+    github_token = process.env.GITHUB_TOKEN || conf.GITHUB_TOKEN,
+    repository_path = process.env.REPOSITORY_PATH || conf.REPOSITORY_PATH,
+    result_output_path = process.env.RESULT_OUTPUT_PATH || conf.RESULT_OUTPUT_PATH,
+    monitor_interval = process.env.MONITOR_INTERVAL || conf.MONITOR_INTERVAL;
 
 var app = express();
 app.use(express.bodyParser());
