@@ -24,7 +24,8 @@ var PORT = conf.SERVER_PORT || process.env.SERVER_PORT,
     github_url = conf.GITHUB_URL || process.env.GITHUB_URL,
     github_token = conf.GITHUB_TOKEN || process.env.GITHUB_TOKEN,
     repository_path = conf.REPOSITORY_PATH || process.env.REPOSITORY_PATH,
-    result_output_path = conf.RESULT_OUTPUT_PATH || process.env.RESULT_OUTPUT_PATH;
+    result_output_path = conf.RESULT_OUTPUT_PATH || process.env.RESULT_OUTPUT_PATH,
+    monitor_interval = conf.MONITOR_INTERVAL || process.env.MONITOR_INTERVAL;
 
 var app = express();
 app.use(express.bodyParser());
@@ -32,8 +33,6 @@ app.use(express.bodyParser());
 /**
  * Interval to hit the test interface to kick off a test.
  *
- * TODO: make the interval time user settable.  Probably should also add another endpoint
- * to listen for a broadcast for an "on demand" test.
  */
 var intervalRunTests;
 intervalRunTests = setInterval(function(){
@@ -41,7 +40,7 @@ intervalRunTests = setInterval(function(){
         console.log('Exit code:', code);
         console.log('Program output:', output);
     });
-}, 60000);
+}, monitor_interval);
 
 
 /**

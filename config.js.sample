@@ -6,6 +6,9 @@ exports.GITHUB_TOKEN = '12345'; // Generate an github access token to clone a pr
 exports.REPOSITORY_PATH = '/tmp/repo'; // Local directory to clone the repository to
 exports.RESULT_OUTPUT_PATH = '/tmp/frisby_output/'; // Local directory to put the results
 
+// API Monitor test run interval
+exports.MONITOR_INTERVAL = 60000; // in milliseconds
+
 // Server TCP Port
 exports.SERVER_PORT = 8081;
 exports.SERVER_HOST = 'localhost';
@@ -22,7 +25,7 @@ exports.TRIGGER_WEBHOOK = true;
 exports.TRIGGER_HIPCHAT = true;
 
 // Error Thresholds
-exports.THRESHOLD_ERRORS = 0;
+exports.THRESHOLD_ERRORS = 1;
 exports.THRESHOLD_FAILURES = 1;
 
 // Action config - Webhook
