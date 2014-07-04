@@ -14,8 +14,5 @@ RUN npm install
 RUN npm install jasmine-node -g
 RUN npm install forever -g
 
-# Place holder for environments
-ENV NODE_ENV dev_garland
-
 # Start API monitoring server
 CMD ["forever", "app.js"]
