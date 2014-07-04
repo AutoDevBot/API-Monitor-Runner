@@ -2,8 +2,8 @@
 FROM dockerfile/ubuntu
 
 # System update and install
-RUN apt-get update
-RUN apt-get install nodejs npm -y
+RUN apt-get -y --force-yes update
+RUN apt-get -y --force-yes install nodejs npm
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Clone the application repo and install it
