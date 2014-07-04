@@ -48,7 +48,7 @@ exports.ACTION_EMAIL_SUBJECT = 'Frisby.js Test - ';
 // documentation: http://developer.pagerduty.com/documentation/integration/events/trigger
 //
 exports.ACTION_PAGERDUTY_PROTOCOL = 'https';
-exports.ACTION_PAGERDUTY_HOST = '6515ecf2-100a681ba7e4.my.apitools.com'; //'events.pagerduty.com';
+exports.ACTION_PAGERDUTY_HOST = 'events.pagerduty.com';
 exports.ACTION_PAGERDUTY_METHOD = 'POST';
 exports.ACTION_PAGERDUTY_ENDPOINT = '/generic/2010-04-15/create_event.json';
 exports.ACTION_PAGERDUTY_SERVICE_KEY = 'e93facc04764012d7bfb002500d5d1a6';
@@ -63,7 +63,7 @@ exports.ACTION_PAGERDUTY_CLIENT_URL = 'https://monitoring.service.com';
 // documentation: https://www.hipchat.com/docs/apiv2/method/send_room_notification
 //
 exports.ACTION_HIPCHAT_PROTOCOL = 'https';
-exports.ACTION_HIPCHAT_HOST = '6515ecf2-100a681ba7e4.my.apitools.com'; //'api.hipchat.com';
+exports.ACTION_HIPCHAT_HOST = 'api.hipchat.com';
 exports.ACTION_HIPCHAT_METHOD = 'POST';
 exports.ACTION_HIPCHAT_ENDPOINT = '/v2/room/{id_or_name}/notification';  // Replace {id_or_name} with your room name
 exports.ACTION_HIPCHAT_AUTHTOKEN = 'abc123';
