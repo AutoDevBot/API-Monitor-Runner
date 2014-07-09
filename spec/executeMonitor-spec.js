@@ -78,5 +78,5 @@ describe("Execute a Frisby.js test", function(){
             expect(results).not.toBe(null);
             done();
         });
-    });
+    }, 10000);
 });
