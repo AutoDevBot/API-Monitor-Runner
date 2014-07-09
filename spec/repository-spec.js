@@ -8,7 +8,7 @@ describe("Before pulling a repository", function(){
     beforeEach(function(done) {
 
         // Create dummy directory for repository.remove() to remove
-        shell.exec('mkdir '+repo_path, function(code, output) {
+        shell.exec('mkdir '+repo_path+'; echo 0', function(code, output) {
             console.log('Exit code:', code);
             console.log('Program output:', output);
             done();
@@ -16,7 +16,7 @@ describe("Before pulling a repository", function(){
     });
     afterEach(function(done) {
         // remove dummy directory
-        shell.exec('rmdir '+repo_path, function(code, output) {
+        shell.exec('rmdir '+repo_path+'; echo 0', function(code, output) {
             console.log('Exit code:', code);
             console.log('Program output:', output);
             done();
