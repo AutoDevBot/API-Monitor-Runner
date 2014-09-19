@@ -59,7 +59,7 @@ describe("Execute a Frisby.js test", function(){
             done();
         });
     });
-
+/*
     it('Should execute the Frisby.js tests', function(done){
 
         executeMonitor.setRepoPath(repo_path);
@@ -79,4 +79,5 @@ describe("Execute a Frisby.js test", function(){
             done();
         });
     }, 10000);
+*/
 });
